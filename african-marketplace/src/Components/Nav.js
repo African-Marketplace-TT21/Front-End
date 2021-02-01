@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Text, Button, Link, Stack } from "@chakra-ui/react";
+import { NavLink } from "react-router-dom";
 import {
    Drawer,
    DrawerBody,
@@ -31,20 +32,24 @@ function DrawerExample() {
 
                   <DrawerBody>
                      <Stack>
-                        <Link>Home</Link>
-                        <Link>About Us</Link>
-                        <Link>Meet the Team</Link>
-                        <Link>Sign Up</Link>
-                        <Link>Log In</Link>
+                        <NavLink onClick={onClose} to="/">
+                           Home
+                        </NavLink>
+                        <NavLink onClick={onClose} to="/about">
+                           About Us
+                        </NavLink>
+                        <NavLink onClick={onClose} to="/team">
+                           Meet the Team
+                        </NavLink>
+                        <NavLink onClick={onClose} to="/register">
+                           Sign Up
+                        </NavLink>
+                        <NavLink onClick={onClose} to="/login">
+                           Log In
+                        </NavLink>
+                        {/* tbd: may these should be replaced by a dashboard button and a logout button when logged in  */}
                      </Stack>
                   </DrawerBody>
-
-                  <DrawerFooter>
-                     <Button variant="outline" mr={3} onClick={onClose}>
-                        Cancel
-                     </Button>
-                     <Button color="blue">Save</Button>
-                  </DrawerFooter>
                </DrawerContent>
             </DrawerOverlay>
          </Drawer>
