@@ -17,7 +17,7 @@ export default function Register() {
    const [email, setEmail] = useState("");
 
    const [pass, setPass] = useState("");
-   const [accountType, setAccountType] = useState("customer");
+   const [accountType, setAccountType] = useState("user");
 
    const submit = () => {
       // this only congregates state for now
@@ -33,7 +33,7 @@ export default function Register() {
    };
 
    return (
-      <Box>
+      <Box className="register">
          <FormControl id="reg-first-name" isRequired>
             <FormLabel>First Name</FormLabel>
             <Input
@@ -66,14 +66,20 @@ export default function Register() {
          <FormControl id="customer-type" isRequired>
             <FormLabel>Account Type</FormLabel>
             <Select onChange={(e) => setAccountType(e.target.value)}>
-               <option value="customer">Customer</option>
-               <option value="vendor">Vendor</option>
+               <option value="user">User</option>
+               <option value="owner">Owner</option>
             </Select>
          </FormControl>
-         <Button onClick={submit}> Submit </Button>
-         <NavLink to="/">
-            <Button> Cancel </Button>
-         </NavLink>
+
+         <Box display="flex" justifyContent="space-around" mt="3%">
+            <NavLink to="/">
+               <Button onClick={submit}> Submit </Button>
+            </NavLink>
+
+            <NavLink to="/">
+               <Button> Cancel </Button>
+            </NavLink>
+         </Box>
       </Box>
    );
 }

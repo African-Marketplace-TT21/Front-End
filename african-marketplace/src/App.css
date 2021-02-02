@@ -1,5 +1,6 @@
-.App {
-   text-align: center;
+.appbody {
+   display: flex;
+   flex-direction: column;
 }
 
 .navbar {
@@ -153,4 +154,24 @@
    padding: 10%;
    background-color: rgba(29, 36, 42, 0.9);
    width: 100%;
+}
+
+.register {
+   width: 40%;
+   min-width: 300px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-self: center;
+   margin-top: 10%;
+}
+
+.login {
+   width: 30%;
+   min-width: 300px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-self: center;
+   margin-top: 10%;
 }
