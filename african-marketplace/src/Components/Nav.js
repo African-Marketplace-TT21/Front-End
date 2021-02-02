@@ -57,11 +57,15 @@ function DrawerExample() {
    );
 }
 
-function Nav() {
+function Nav(props) {
    return (
       <Box>
          <nav className="navbar">
-            <Text> AFRICAN MARKETPLACE</Text>
+            <Text
+               visibility={props.display === undefined ? "hidden" : "visible"}
+            >
+               AFRICAN MARKETPLACE
+            </Text>
             <DrawerExample></DrawerExample>
          </nav>
       </Box>
