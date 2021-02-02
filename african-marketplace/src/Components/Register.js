@@ -19,10 +19,6 @@ export default function Register() {
    const [pass, setPass] = useState("");
    const [accountType, setAccountType] = useState("customer");
 
-   const getname = () => {
-      return name[0] + " " + name[1];
-   };
-
    const submit = () => {
       // this only congregates state for now
       const info = {};
