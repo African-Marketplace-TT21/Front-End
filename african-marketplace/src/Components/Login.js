@@ -23,7 +23,7 @@ export default function Login() {
    // after validation, go to dashboard
 
    return (
-      <Box>
+      <Box className="login">
          <FormControl id="login-email" isRequired>
             <FormLabel>Email</FormLabel>
             <Input
@@ -39,11 +39,13 @@ export default function Login() {
                setPass={setPass}
             />
          </FormControl>
-         <Button onClick={validate}> Login </Button>
-         {/* if successful, go to /dashboard */}
-         <NavLink to="/">
-            <Button> Cancel </Button>
-         </NavLink>
+         <Box display="flex" justifyContent="space-around" mt="3%">
+            <Button onClick={validate}> Login </Button>
+            {/* if successful, go to /dashboard */}
+            <NavLink to="/">
+               <Button> Cancel </Button>
+            </NavLink>
+         </Box>
       </Box>
    );
 }

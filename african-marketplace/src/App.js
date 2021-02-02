@@ -117,7 +117,7 @@ function AnimateScroll() {
 
 function App() {
    return (
-      <Box width="100%">
+      <Box width="100%" className="appbody">
          <Nav />
          <Route exact path="/">
             <Box className="banner">
