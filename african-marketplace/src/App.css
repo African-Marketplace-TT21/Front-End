@@ -4,16 +4,35 @@
 
 .navbar {
    display: flex;
+   position: fixed;
+   top: 0;
    flex-direction: row;
    justify-content: space-between;
+   background-color: rgba(0, 0, 0, 0);
+   width: 100%;
 }
 
 .banner {
    display: flex;
    flex-direction: column;
-   justify-content: center;
+   justify-content: flex-end;
    align-items: center;
    text-align: center;
+   height: 95vh;
+   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("./Assets/banner.jpg");
+   background-position: bottom;
+   background-attachment: fixed;
+   background-size: cover;
+}
+
+.banner-inner {
+   display: flex;
+   flex-direction: column;
+   min-width: 100%;
+   padding: 10%;
+   justify-content: center;
+   align-items: center;
 }
 
 .section1 {
@@ -22,4 +41,116 @@
    justify-content: center;
    align-items: center;
    text-align: center;
+   scroll-behavior: smooth;
+}
+
+.icons {
+   display: flex;
+   margin: 10%;
+   width: 45vh;
+   justify-content: space-around;
+}
+
+.diamond {
+   border: 2px solid hsla(0, 0%, 0%, 0.11);
+   width: 65px;
+   height: 65px;
+   transform: rotate(45deg);
+}
+
+.sectionsegment {
+   display: flex;
+   flex-direction: row;
+}
+
+.sectionsegment-inner {
+   padding: 5% 8%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+.section3 {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   background-color: #505393;
+   color: #d3d4e4;
+}
+
+.section3-top {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   width: 60%;
+}
+
+.section3cards {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   flex-wrap: wrap;
+   padding: 10vh;
+   width: 100%;
+   max-width: 135vh;
+}
+
+.sectioncard {
+   display: flex;
+   width: 50%;
+   min-width: 290px;
+   flex-direction: row;
+   padding: 5%;
+}
+
+.sectioncard-inner {
+   padding: 5% 8%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+.homepage-end {
+   background-image: url("./Assets/banner.jpg");
+   background-position: bottom;
+   background-attachment: fixed;
+   background-size: cover;
+
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.cta {
+   display: flex;
+   padding: 8vh 0 8vh 0;
+   background-color: rgba(0, 0, 0, 0.596);
+   width: 100%;
+   flex-direction: row;
+   justify-content: center;
+}
+
+.cta-text {
+   text-align: left;
+   color: #e0e0e0;
+   width: 35%;
+}
+
+.cta-buttons {
+   display: flex;
+   width: 22vw;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.footer {
+   display: flex;
+   justify-content: center;
+   padding: 10%;
+   background-color: rgba(29, 36, 42, 0.9);
+   width: 100%;
 }
