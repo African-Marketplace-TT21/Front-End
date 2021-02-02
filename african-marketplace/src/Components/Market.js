@@ -1,15 +1,7 @@
 // After owner added an item in his dashboard, any user would be able to see it this page if the search location is correct.
 
-import React, { useState } from "react";
-import {
-   Box,
-   Text,
-   Button,
-   FormControl,
-   FormLabel,
-   Input,
-   Select,
-} from "@chakra-ui/react";
+import React from "react";
+import { Box, Text, Input, Select } from "@chakra-ui/react";
 
 // import TestItems from "../Mockdata/testitems";
 
@@ -58,7 +50,7 @@ function Card(props) {
 }
 
 //filter would accept or reject items to be displayed on the market page according to the selected filters and search keyword
-function filter() {}
+// function filter() {}
 
 export default function Market(props) {
    return (

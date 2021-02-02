@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, IconButton } from "@chakra-ui/react";
-import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {

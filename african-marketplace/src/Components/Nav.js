@@ -1,10 +1,9 @@
 import React from "react";
-import { Box, Text, Button, Link, Stack } from "@chakra-ui/react";
+import { Box, Text, Button, Stack } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import {
    Drawer,
    DrawerBody,
-   DrawerFooter,
    DrawerOverlay,
    DrawerContent,
    DrawerCloseButton,
