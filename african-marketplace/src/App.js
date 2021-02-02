@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { Route } from "react-router-dom";
+import { Route, NavLink } from "react-router-dom";
 import {
    Box,
    Text,
@@ -29,6 +29,9 @@ import Footer from "./Components/Footer";
 import Pic01 from "./Assets/pic01.jpeg";
 import Pic02 from "./Assets/pic02.jpeg";
 import Pic03 from "./Assets/pic03.jpeg";
+import Dashboard from "./Components/Dashboard";
+import Market from "./Components/Market";
+import TestItems from "./Mockdata/testitems";
 
 library.add(faPaperPlane, faLaptop, faCode, faHeadphones, faHeart, faFlag);
 const section3icons = [
@@ -116,6 +119,8 @@ function AnimateScroll() {
 }
 
 function App() {
+   const [mockItems, setMockItems] = useState(TestItems);
+
    return (
       <Box width="100%" className="appbody">
          <Nav />
@@ -131,15 +136,16 @@ function App() {
                      padding="1%"
                      mb="3vh"
                   >
-                     {" "}
-                     AFRICAN MARKETPLACE{" "}
+                     AFRICAN MARKETPLACE
                   </Text>
                   <Text color="white" fontSize="lg" mb="3vh">
                      SAUTI AFRICA EMPOWERS SMALL BUSINESS OWNERS, PARTICULARLY
                      WOMEN, TO IMPROVE THEIR BUSINESS AND ECONOMIC OPPORTUNITIES
                      TO GROW OUT OF POVERTY.
                   </Text>
-                  <Button w="15vh"> Activate </Button>
+                  <NavLink to="/market">
+                     <Button w="15vh"> Activate </Button>
+                  </NavLink>
                </Box>
                <Box marginTop="25vh" marginBottom="5vh">
                   <Link
@@ -261,9 +267,12 @@ function App() {
                      </Text>
                   </Box>
                   <Box className="cta-buttons">
-                     <Button mb="5%" width="75%">
-                        Activate
-                     </Button>
+                     <NavLink to="/market">
+                        <Button mb="5%" width="75%">
+                           Activate
+                        </Button>
+                     </NavLink>
+
                      <Button mt="5%" mb="10%" width="75%">
                         Learn More
                      </Button>
@@ -277,6 +286,12 @@ function App() {
          </Route>
          <Route exact path="/login">
             <Login />
+         </Route>
+         <Route exact path="/dashboard">
+            <Dashboard mockItems={mockItems} setMockItems={setMockItems} />
+         </Route>
+         <Route exact path="/market">
+            <Market mockItems={mockItems} />
          </Route>
       </Box>
    );

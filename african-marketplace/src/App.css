@@ -175,3 +175,25 @@
    align-self: center;
    margin-top: 10%;
 }
+
+.marketfilter {
+   display: flex;
+   flex-direction: row;
+   margin-top: 4%;
+   width: 50%;
+   left: 25%;
+   position: relative;
+}
+
+.marketresult {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: center;
+}
+
+.itemcard {
+   border: 2px solid gray;
+   padding: 2%;
+   margin: 2%;
+}

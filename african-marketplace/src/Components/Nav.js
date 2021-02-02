@@ -47,6 +47,12 @@ function DrawerExample() {
                         <NavLink onClick={onClose} to="/login">
                            Log In
                         </NavLink>
+                        <NavLink onClick={onClose} to="/dashboard">
+                           Temporary: Dashboard
+                        </NavLink>
+                        <NavLink onClick={onClose} to="/market">
+                           Temporary: Market
+                        </NavLink>
                         {/* tbd: may these should be replaced by a dashboard button and a logout button when logged in  */}
                      </Stack>
                   </DrawerBody>
