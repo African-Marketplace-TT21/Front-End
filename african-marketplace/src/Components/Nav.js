@@ -1,10 +1,9 @@
 import React from "react";
-import { Box, Text, Button, Link, Stack } from "@chakra-ui/react";
+import { Box, Text, Button, Stack } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import {
    Drawer,
    DrawerBody,
-   DrawerFooter,
    DrawerOverlay,
    DrawerContent,
    DrawerCloseButton,
@@ -46,6 +45,12 @@ function DrawerExample() {
                         </NavLink>
                         <NavLink onClick={onClose} to="/login">
                            Log In
+                        </NavLink>
+                        <NavLink onClick={onClose} to="/dashboard">
+                           Temporary: Dashboard
+                        </NavLink>
+                        <NavLink onClick={onClose} to="/market">
+                           Temporary: Market
                         </NavLink>
                         {/* tbd: may these should be replaced by a dashboard button and a logout button when logged in  */}
                      </Stack>

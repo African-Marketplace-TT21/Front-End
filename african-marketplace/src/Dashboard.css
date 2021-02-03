@@ -1,0 +1,21 @@
+.dashboard {
+   height: 100vh;
+
+   background-color: #fafafa;
+}
+
+.dashboard_menu {
+   padding: 1%;
+   background-color: rgb(65, 61, 75);
+}
+
+.dashboard_menu button {
+   background-color: #319795;
+   color: #ffffff;
+}
+
+.myitems {
+   display: flex;
+   width: 85vw;
+   flex-wrap: wrap;
+}

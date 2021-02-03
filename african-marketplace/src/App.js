@@ -1,15 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { Route } from "react-router-dom";
-import {
-   Box,
-   Text,
-   Button,
-   Link,
-   Image,
-   Divider,
-   Icon,
-} from "@chakra-ui/react";
+import { Route, NavLink } from "react-router-dom";
+import { Box, Text, Button, Link, Image, Divider } from "@chakra-ui/react";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -29,6 +21,9 @@ import Footer from "./Components/Footer";
 import Pic01 from "./Assets/pic01.jpeg";
 import Pic02 from "./Assets/pic02.jpeg";
 import Pic03 from "./Assets/pic03.jpeg";
+import Dashboard from "./Components/Dashboard";
+import Market from "./Components/Market";
+import TestItems from "./Mockdata/testitems";
 
 library.add(faPaperPlane, faLaptop, faCode, faHeadphones, faHeart, faFlag);
 const section3icons = [
@@ -62,7 +57,7 @@ const section2text =
 function Section2Segments({ piconright, picsrc, title, bodytext, bgcolor }) {
    return (
       <Box className="sectionsegment" bgColor={bgcolor}>
-         <Image src={picsrc} order={piconright * 1} w={"46%"} />
+         <Image src={picsrc} order={piconright * 1} />
          <Box className="sectionsegment-inner">
             <Text mb="5%" fontSize="2xl">
                {title}
@@ -116,6 +111,8 @@ function AnimateScroll() {
 }
 
 function App() {
+   const [mockItems, setMockItems] = useState(TestItems);
+
    return (
       <Box width="100%" className="appbody">
          <Nav />
@@ -131,15 +128,16 @@ function App() {
                      padding="1%"
                      mb="3vh"
                   >
-                     {" "}
-                     AFRICAN MARKETPLACE{" "}
+                     AFRICAN MARKETPLACE
                   </Text>
                   <Text color="white" fontSize="lg" mb="3vh">
                      SAUTI AFRICA EMPOWERS SMALL BUSINESS OWNERS, PARTICULARLY
                      WOMEN, TO IMPROVE THEIR BUSINESS AND ECONOMIC OPPORTUNITIES
                      TO GROW OUT OF POVERTY.
                   </Text>
-                  <Button w="15vh"> Activate </Button>
+                  <NavLink to="/market">
+                     <Button w="15vh"> Activate </Button>
+                  </NavLink>
                </Box>
                <Box marginTop="25vh" marginBottom="5vh">
                   <Link
@@ -153,12 +151,13 @@ function App() {
                </Box>
             </Box>
             <Box id="jumppoint" className="section1" bgColor="#21b2a6">
-               <Box width="70vh" mt="10vh">
+               <Box width="70vh" mt="10vh" maxW="95vw">
                   <Text fontSize="3xl" color="white">
                      ARCU ALIQUET VEL LOBORTIS ATA NISL EGET AUGUE AMET ALIQUET
                      NISL CEP DONEC
                   </Text>
                   <Box
+                     maxWidth="100vw"
                      margin="3vh 0"
                      border="2px solid rgba(55, 55, 55, 0.17)"
                      bgColor="rgba(55, 55, 55, 0.17)"
@@ -261,10 +260,13 @@ function App() {
                      </Text>
                   </Box>
                   <Box className="cta-buttons">
-                     <Button mb="5%" width="75%">
-                        Activate
-                     </Button>
-                     <Button mt="5%" mb="10%" width="75%">
+                     <NavLink to="/market">
+                        <Button mb="5%" width="150px">
+                           Activate
+                        </Button>
+                     </NavLink>
+
+                     <Button mt="5%" mb="10%" width="150px">
                         Learn More
                      </Button>
                   </Box>
@@ -277,6 +279,12 @@ function App() {
          </Route>
          <Route exact path="/login">
             <Login />
+         </Route>
+         <Route exact path="/dashboard">
+            <Dashboard mockItems={mockItems} setMockItems={setMockItems} />
+         </Route>
+         <Route exact path="/market">
+            <Market mockItems={mockItems} />
          </Route>
       </Box>
    );

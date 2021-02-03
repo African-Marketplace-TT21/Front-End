@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-import { Box, Text, Button, Link, Stack } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import PasswordInput from "./PasswordInput";
-import {
-   FormControl,
-   FormLabel,
-   FormErrorMessage,
-   FormHelperText,
-   Input,
-   Select,
-} from "@chakra-ui/react";
-import axios from "axios";
+import { FormControl, FormLabel, Input, Select } from "@chakra-ui/react";
+// import axios from "axios";
 
 export default function Register() {
    const [name, setName] = useState({ firstname: "", lastname: "" }); // [firstname, lastname]
