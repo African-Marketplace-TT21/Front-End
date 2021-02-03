@@ -1,7 +1,7 @@
 // After owner added an item in his dashboard, any user would be able to see it this page if the search location is correct.
 
 import React, { useState } from "react";
-import { Box, Text, Input, Select } from "@chakra-ui/react";
+import { Box, Input, Select } from "@chakra-ui/react";
 import ItemCard from "./ItemCard";
 
 // import TestItems from "../Mockdata/testitems";

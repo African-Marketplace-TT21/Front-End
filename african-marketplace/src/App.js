@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Route, NavLink } from "react-router-dom";
 import { Box, Text, Button, Link, Image, Divider } from "@chakra-ui/react";
