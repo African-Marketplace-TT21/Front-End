@@ -16,6 +16,7 @@ export default function PasswordInput(props) {
             name="password"
             onChange={(e) => setPass(e.target.value)}
             value={pass}
+            autoComplete="off"
          />
          <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>

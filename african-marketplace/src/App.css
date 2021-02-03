@@ -232,6 +232,10 @@ body {
    /* box-shadow: inset 0px 0px 5px 5px white; */
 }
 
+.registerfail {
+   transition: 0.5s;
+}
+
 @media (max-width: 700px) {
    .sectionsegment {
       max-width: 100vw;

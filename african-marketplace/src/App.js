@@ -24,6 +24,7 @@ import Pic03 from "./Assets/pic03.jpeg";
 import Dashboard from "./Components/Dashboard";
 import Market from "./Components/Market";
 import TestItems from "./Mockdata/testitems";
+import TestAccounts from "./Mockdata/testaccounts";
 
 library.add(faPaperPlane, faLaptop, faCode, faHeadphones, faHeart, faFlag);
 const section3icons = [
@@ -112,6 +113,8 @@ function AnimateScroll() {
 
 function App() {
    const [mockItems, setMockItems] = useState(TestItems);
+   const [mockAccounts, setMockAccounts] = useState(TestAccounts);
+   const [currentUser, setCurrentUser] = useState({});
 
    return (
       <Box width="100%" className="appbody">
@@ -275,13 +278,24 @@ function App() {
             </Box>
          </Route>
          <Route exact path="/register">
-            <Register />
+            <Register
+               mockAccounts={mockAccounts}
+               setMockAccounts={setMockAccounts}
+            />
          </Route>
          <Route exact path="/login">
-            <Login />
+            <Login
+               mockAccounts={mockAccounts}
+               currentUser={currentUser}
+               setCurrentUser={setCurrentUser}
+            />
          </Route>
          <Route exact path="/dashboard">
-            <Dashboard mockItems={mockItems} setMockItems={setMockItems} />
+            <Dashboard
+               mockItems={mockItems}
+               setMockItems={setMockItems}
+               currentUser={currentUser}
+            />
          </Route>
          <Route exact path="/market">
             <Market mockItems={mockItems} />

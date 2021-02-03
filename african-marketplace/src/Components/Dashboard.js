@@ -34,7 +34,8 @@ function AddItemModal(props) {
       location: "",
       description: "",
       price: 0,
-      seller: "mockseller",
+      seller: props.currentUser.name,
+      sellerid: props.currentUser.id,
    });
 
    const update = (e) => {
@@ -149,12 +150,18 @@ export default function Dashboard(props) {
                <Items
                   mockItems={props.mockItems}
                   setMockItems={props.setMockItems}
+                  currentUser={props.currentUser}
                ></Items>
             );
          case "profile":
             return <> Displaying My Profile </>;
          case "overview":
-            return <> Displaying Overview </>;
+            return (
+               <>
+                  <Text> Overview </Text>
+                  <Text> Hello! {props.currentUser.name} </Text>
+               </>
+            );
          case "orders":
             return <> Displaying My Orders </>;
          case "settings":
@@ -169,8 +176,10 @@ export default function Dashboard(props) {
       const getmyitems = () => {
          // display current owner's items
          // mock: "mockseller"
-         const myusername = "mockseller";
-         return props.mockItems.filter((i) => i.seller === myusername);
+         // const myusername = "mockseller";
+         return props.mockItems.filter(
+            (i) => i.sellerid === props.currentUser.id
+         );
       };
 
       return (
@@ -186,6 +195,7 @@ export default function Dashboard(props) {
                <AddItemModal
                   mockItems={props.mockItems}
                   setMockItems={props.setMockItems}
+                  currentUser={props.currentUser}
                />
             </Box>
             <Box className="myitems">
@@ -206,9 +216,14 @@ export default function Dashboard(props) {
             <Button ml="1vw" onClick={() => setCurrentdisplay("orders")}>
                Orders
             </Button>
-            <Button ml="1vw" onClick={() => setCurrentdisplay("items")}>
-               My Items
-            </Button>
+            {props.currentUser.accountType === "owner" ? (
+               <Button ml="1vw" onClick={() => setCurrentdisplay("items")}>
+                  My Items
+               </Button>
+            ) : (
+               <></>
+            )}
+
             <Button ml="1vw" onClick={() => setCurrentdisplay("profile")}>
                Profile
             </Button>
