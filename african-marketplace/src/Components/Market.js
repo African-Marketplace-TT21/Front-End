@@ -1,7 +1,8 @@
 // After owner added an item in his dashboard, any user would be able to see it this page if the search location is correct.
 
-import React from "react";
+import React, { useState } from "react";
 import { Box, Text, Input, Select } from "@chakra-ui/react";
+import ItemCard from "./ItemCard";
 
 // import TestItems from "../Mockdata/testitems";
 
@@ -35,50 +36,92 @@ import { Box, Text, Input, Select } from "@chakra-ui/react";
 //    },
 // ];
 
-function Card(props) {
-   const { name, location, category, price, seller } = props.data;
-
-   return (
-      <Box className="itemcard">
-         <Text> {name} </Text>
-         <Text> Location: {location} </Text>
-         <Text> Category: {category} </Text>
-         <Text> Price: ${price} </Text>
-         <Text> Seller: {seller} </Text>
-      </Box>
-   );
-}
-
-//filter would accept or reject items to be displayed on the market page according to the selected filters and search keyword
-// function filter() {}
-
 export default function Market(props) {
-   return (
-      <Box display="flex" flexDir="column" justifyContent="center">
-         <Box className="marketfilter">
-            <Input placeholder="Search" />
+   const [searchterm, setSearchterm] = useState("");
+   const [searchcategory, setSearchcategory] = useState("");
+   const [searchlocation, setSearchlocation] = useState("");
 
-            <Select placeholder="Category" width="50%">
-               <option value=""> Coffee </option>
-               <option value=""> Fruits </option>
-               <option value=""> Herbs </option>
-               <option value=""> Meat </option>
-               <option value=""> Tea </option>
-               <option value=""> Vegetables </option>
+   //filter would accept or reject items to be displayed on the market page according to the selected filters and search keyword
+   function filter(items) {
+      // this is not the best practice to search stuff
+      // let items_to_filter = props.mockItems;
+      let items_to_filter = items;
+      items_to_filter = items_to_filter.filter((i) =>
+         !searchcategory.length ? i : i.category === searchcategory
+      );
+      if (!items_to_filter.length) {
+         return [];
+      }
+      items_to_filter = items_to_filter.filter((i) =>
+         !searchlocation.length ? i : i.location === searchlocation
+      );
+      if (!items_to_filter.length) {
+         return [];
+      }
+      if (searchterm.length === 0) {
+         return items_to_filter;
+      }
+
+      const tempkeys = Object.keys(items_to_filter[0]).filter(
+         (i) => i != "price" && i != "id"
+      );
+
+      const final = [];
+      const searchregex = new RegExp(searchterm, "i"); // we want to search in a case-insensitive way
+      const check = () => {
+         for (let j of items_to_filter) {
+            for (let k of tempkeys) {
+               if (j[k].match(searchregex) != null) {
+                  final.push(j);
+                  break;
+               }
+            }
+         }
+      };
+      check();
+      return final;
+   }
+
+   return (
+      <Box className="market">
+         <Box className="marketfilter">
+            <Input
+               placeholder="Search"
+               onChange={(e) => setSearchterm(e.target.value)}
+            />
+
+            <Select
+               placeholder="Category"
+               width="50%"
+               onChange={(e) => setSearchcategory(e.target.value)}
+            >
+               <option value="Coffee"> Coffee </option>
+               <option value="Fruits"> Fruits </option>
+               <option value="Herbs"> Herbs </option>
+               <option value="Meat"> Meat </option>
+               <option value="Tea"> Tea </option>
+               <option value="Vegetables"> Vegetables </option>
             </Select>
 
-            <Select placeholder="Location" width="50%">
-               <option value=""> Egypt </option>
-               <option value=""> Eritrea </option>
-               <option value=""> Ethiopia </option>
-               <option value=""> Kenya </option>
-               <option value=""> Sudan </option>
-               <option value=""> Tanzania </option>
+            <Select
+               placeholder="Location"
+               width="50%"
+               onChange={(e) => setSearchlocation(e.target.value)}
+            >
+               <option value="Egypt"> Egypt </option>
+               <option value="Eritrea"> Eritrea </option>
+               <option value="Ethiopia"> Ethiopia </option>
+               <option value="Kenya"> Kenya </option>
+               <option value="Sudan"> Sudan </option>
+               <option value="Tanzania"> Tanzania </option>
             </Select>
          </Box>
-         <Box className="marketresult">
-            {props.mockItems.map((i) => (
-               <Card key={i.id + i.description} data={i}></Card>
+         <Box className="marketresult" mt="4vh">
+            {filter(props.mockItems).map((i) => (
+               <ItemCard
+                  key={i.id + i.description + "_market"}
+                  data={i}
+               ></ItemCard>
             ))}
          </Box>
       </Box>

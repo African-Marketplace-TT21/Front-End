@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+// import { Route, Navlink } from "react-router-dom";
 import {
    Box,
+   Text,
    Button,
    FormControl,
    FormLabel,
@@ -18,17 +20,8 @@ import {
    ModalBody,
    ModalFooter,
 } from "@chakra-ui/react";
-
-function Menu(props) {
-   return (
-      <Box>
-         <AddItemModal
-            mockItems={props.mockItems}
-            setMockItems={props.setMockItems}
-         />
-      </Box>
-   );
-}
+import ItemCard from "./ItemCard";
+import "../Dashboard.css";
 
 function AddItemModal(props) {
    const { isOpen, onOpen, onClose } = useDisclosure();
@@ -87,7 +80,6 @@ function AddItemModal(props) {
                   </FormControl>
 
                   <FormControl>
-                     {" "}
                      <FormLabel>Item Category</FormLabel>
                      <Select
                         name="category"
@@ -138,8 +130,7 @@ function AddItemModal(props) {
                      Add Item
                   </Button>
                   <Button variant="ghost" onClick={onClose}>
-                     {" "}
-                     Cancel{" "}
+                     Cancel
                   </Button>
                </ModalFooter>
             </ModalContent>
@@ -149,9 +140,89 @@ function AddItemModal(props) {
 }
 
 export default function Dashboard(props) {
+   const [currentdisplay, setCurrentdisplay] = useState("overview");
+
+   function MainDis(element) {
+      switch (element) {
+         case "items":
+            return (
+               <Items
+                  mockItems={props.mockItems}
+                  setMockItems={props.setMockItems}
+               ></Items>
+            );
+         case "profile":
+            return <> Displaying My Profile </>;
+         case "overview":
+            return <> Displaying Overview </>;
+         case "orders":
+            return <> Displaying My Orders </>;
+         case "settings":
+            return <> Displaying Settings </>;
+
+         default:
+            return <> Displaying Nothing </>;
+      }
+   }
+
+   function Items(props) {
+      const getmyitems = () => {
+         // display current owner's items
+         // mock: "mockseller"
+         const myusername = "mockseller";
+         return props.mockItems.filter((i) => i.seller === myusername);
+      };
+
+      return (
+         <Box mt="2%" display="flex" alignItems="center" flexDir="column">
+            <Box
+               ml="2%"
+               display="flex"
+               p="2%"
+               justifyContent="space-between"
+               w="100vw"
+            >
+               <Text fontSize="3xl"> My Items </Text>
+               <AddItemModal
+                  mockItems={props.mockItems}
+                  setMockItems={props.setMockItems}
+               />
+            </Box>
+            <Box className="myitems">
+               {getmyitems().map((i) => (
+                  <ItemCard key={i.id + i.description + "_myitems"} data={i} />
+               ))}
+            </Box>
+         </Box>
+      );
+   }
+
+   function Menu() {
+      return (
+         <Box className="dashboard_menu">
+            <Button ml="1vw" onClick={() => setCurrentdisplay("overview")}>
+               Overview
+            </Button>
+            <Button ml="1vw" onClick={() => setCurrentdisplay("orders")}>
+               Orders
+            </Button>
+            <Button ml="1vw" onClick={() => setCurrentdisplay("items")}>
+               My Items
+            </Button>
+            <Button ml="1vw" onClick={() => setCurrentdisplay("profile")}>
+               Profile
+            </Button>
+            <Button ml="1vw" onClick={() => setCurrentdisplay("settings")}>
+               Settings
+            </Button>
+         </Box>
+      );
+   }
+
    return (
-      <Box>
+      <Box className="dashboard">
          <Menu mockItems={props.mockItems} setMockItems={props.setMockItems} />
+         {MainDis(currentdisplay)}
       </Box>
    );
 }

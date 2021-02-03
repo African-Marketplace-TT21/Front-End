@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Route, NavLink } from "react-router-dom";
 import { Box, Text, Button, Link, Image, Divider } from "@chakra-ui/react";
@@ -57,7 +57,7 @@ const section2text =
 function Section2Segments({ piconright, picsrc, title, bodytext, bgcolor }) {
    return (
       <Box className="sectionsegment" bgColor={bgcolor}>
-         <Image src={picsrc} order={piconright * 1} w={"46%"} />
+         <Image src={picsrc} order={piconright * 1} />
          <Box className="sectionsegment-inner">
             <Text mb="5%" fontSize="2xl">
                {title}
@@ -151,12 +151,13 @@ function App() {
                </Box>
             </Box>
             <Box id="jumppoint" className="section1" bgColor="#21b2a6">
-               <Box width="70vh" mt="10vh">
+               <Box width="70vh" mt="10vh" maxW="95vw">
                   <Text fontSize="3xl" color="white">
                      ARCU ALIQUET VEL LOBORTIS ATA NISL EGET AUGUE AMET ALIQUET
                      NISL CEP DONEC
                   </Text>
                   <Box
+                     maxWidth="100vw"
                      margin="3vh 0"
                      border="2px solid rgba(55, 55, 55, 0.17)"
                      bgColor="rgba(55, 55, 55, 0.17)"
@@ -260,12 +261,12 @@ function App() {
                   </Box>
                   <Box className="cta-buttons">
                      <NavLink to="/market">
-                        <Button mb="5%" width="75%">
+                        <Button mb="5%" width="150px">
                            Activate
                         </Button>
                      </NavLink>
 
-                     <Button mt="5%" mb="10%" width="75%">
+                     <Button mt="5%" mb="10%" width="150px">
                         Learn More
                      </Button>
                   </Box>
