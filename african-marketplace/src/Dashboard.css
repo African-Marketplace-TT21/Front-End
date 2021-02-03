@@ -14,6 +14,11 @@
    color: #ffffff;
 }
 
+.dashboard_menu button:hover {
+   background-color: #267977;
+   color: #ffffff;
+}
+
 .myitems {
    display: flex;
    width: 85vw;

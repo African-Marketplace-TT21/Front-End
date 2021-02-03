@@ -3,7 +3,6 @@ import { Box, Text, Button, Stack } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import {
    Drawer,
-   DrawerBody,
    DrawerOverlay,
    DrawerContent,
    DrawerCloseButton,
@@ -11,84 +10,99 @@ import {
 } from "@chakra-ui/react";
 
 function Nav(props) {
+   // const [t, setT] = useState(false);
    function DrawerExample() {
       const { isOpen, onOpen, onClose } = useDisclosure();
-      const btnRef = React.useRef();
-
+      // const btnRef = React.useRef();
+      let x;
       return (
          <>
-            <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
+            <Button
+               // ref={btnRef}
+               colorScheme="teal"
+               onClick={(e) => {
+                  onOpen(e);
+               }}
+               onMouseOver={() => {
+                  x = setTimeout(onOpen, 750);
+               }}
+               onMouseLeave={() => {
+                  clearTimeout(x);
+               }}
+            >
                Menu
             </Button>
             <Drawer
                isOpen={isOpen}
                placement="right"
                onClose={onClose}
-               finalFocusRef={btnRef}
+               // finalFocusRef={btnRef}
             >
                <DrawerOverlay>
-                  <DrawerContent>
-                     <DrawerCloseButton />
+                  <DrawerContent background="transparent" boxShadow="">
+                     <DrawerCloseButton
+                        size="md"
+                        color="white"
+                        border="2px solid gray"
+                        bgColor="#21b2a6"
+                     />
 
-                     <DrawerBody>
-                        <Stack>
-                           <NavLink onClick={onClose} to="/">
-                              Home
+                     <Stack className="menu-drawer">
+                        <NavLink onClick={onClose} to="/">
+                           Home
+                        </NavLink>
+                        <NavLink onClick={onClose} to="/about">
+                           About Us
+                        </NavLink>
+                        <NavLink onClick={onClose} to="/team">
+                           Meet the Team
+                        </NavLink>
+
+                        {props.currentUser.id === undefined ? (
+                           <NavLink onClick={onClose} to="/register">
+                              Sign Up
                            </NavLink>
-                           <NavLink onClick={onClose} to="/about">
-                              About Us
+                        ) : (
+                           <></>
+                        )}
+                        {props.currentUser.id === undefined ? (
+                           <NavLink onClick={onClose} to="/login">
+                              Log In
                            </NavLink>
-                           <NavLink onClick={onClose} to="/team">
-                              Meet the Team
+                        ) : (
+                           <></>
+                        )}
+
+                        {props.currentUser.id === undefined ? (
+                           <></>
+                        ) : (
+                           <NavLink onClick={onClose} to="/dashboard">
+                              Dashboard
                            </NavLink>
+                        )}
 
-                           {props.currentUser.id === undefined ? (
-                              <NavLink onClick={onClose} to="/register">
-                                 Sign Up
-                              </NavLink>
-                           ) : (
-                              <></>
-                           )}
+                        {props.currentUser.id === undefined ? (
+                           <></>
+                        ) : (
+                           <NavLink onClick={onClose} to="/market">
+                              Market
+                           </NavLink>
+                        )}
 
-                           {props.currentUser.id === undefined ? (
-                              <NavLink onClick={onClose} to="/login">
-                                 Log In
-                              </NavLink>
-                           ) : (
-                              <></>
-                           )}
-
-                           {props.currentUser.id === undefined ? (
-                              <></>
-                           ) : (
-                              <NavLink onClick={onClose} to="/dashboard">
-                                 Dashboard
-                              </NavLink>
-                           )}
-
-                           {props.currentUser.id === undefined ? (
-                              <></>
-                           ) : (
-                              <NavLink onClick={onClose} to="/market">
-                                 Market
-                              </NavLink>
-                           )}
-
-                           {props.currentUser.id === undefined ? (
-                              <></>
-                           ) : (
-                              <NavLink
-                                 to="/"
-                                 onClick={(e) => {
-                                    props.setCurrentUser({});
-                                    onClose(e);
-                                 }}
-                              >
-                                 Logout
-                              </NavLink>
-                           )}
-                        </Stack>
-                     </DrawerBody>
+                        {props.currentUser.id === undefined ? (
+                           <></>
+                        ) : (
+                           <NavLink
+                              to="/"
+                              onClick={(e) => {
+                                 props.setCurrentUser({});
+                                 onClose(e);
+                              }}
+                           >
+                              Logout
+                           </NavLink>
+                        )}
+                     </Stack>
                   </DrawerContent>
                </DrawerOverlay>
             </Drawer>
