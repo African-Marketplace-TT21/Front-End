@@ -118,7 +118,7 @@ function App() {
 
    return (
       <Box width="100%" className="appbody">
-         <Nav />
+         <Nav currentUser={currentUser} setCurrentUser={setCurrentUser} />
          <Route exact path="/">
             <Box className="banner">
                <Box className="banner-inner">

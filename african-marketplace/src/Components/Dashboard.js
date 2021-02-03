@@ -25,7 +25,7 @@ import "../Dashboard.css";
 
 function AddItemModal(props) {
    const { isOpen, onOpen, onClose } = useDisclosure();
-   // const initialRef = React.useRef()
+   const initialRef = React.useRef();
    // const finalRef = React.useRef()
 
    const [itemdata, setItemData] = useState({
@@ -54,7 +54,8 @@ function AddItemModal(props) {
          <Modal
             isOpen={isOpen}
             onClose={onClose}
-            //  initialFocusRef={initialRef}
+            closeOnOverlayClick={false}
+            initialFocusRef={initialRef}
          >
             <ModalOverlay />
             <ModalContent>
@@ -64,7 +65,7 @@ function AddItemModal(props) {
                   <FormControl>
                      <FormLabel>Item Name</FormLabel>
                      <Input
-                        // ref={initialRef}
+                        ref={initialRef}
                         placeholder="Item Name"
                         name="name"
                         onChange={update}

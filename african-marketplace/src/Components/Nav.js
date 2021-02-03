@@ -10,59 +10,92 @@ import {
    useDisclosure,
 } from "@chakra-ui/react";
 
-function DrawerExample() {
-   const { isOpen, onOpen, onClose } = useDisclosure();
-   const btnRef = React.useRef();
-
-   return (
-      <>
-         <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-            Menu
-         </Button>
-         <Drawer
-            isOpen={isOpen}
-            placement="right"
-            onClose={onClose}
-            finalFocusRef={btnRef}
-         >
-            <DrawerOverlay>
-               <DrawerContent>
-                  <DrawerCloseButton />
-
-                  <DrawerBody>
-                     <Stack>
-                        <NavLink onClick={onClose} to="/">
-                           Home
-                        </NavLink>
-                        <NavLink onClick={onClose} to="/about">
-                           About Us
-                        </NavLink>
-                        <NavLink onClick={onClose} to="/team">
-                           Meet the Team
-                        </NavLink>
-                        <NavLink onClick={onClose} to="/register">
-                           Sign Up
-                        </NavLink>
-                        <NavLink onClick={onClose} to="/login">
-                           Log In
-                        </NavLink>
-                        <NavLink onClick={onClose} to="/dashboard">
-                           Temporary: Dashboard
-                        </NavLink>
-                        <NavLink onClick={onClose} to="/market">
-                           Temporary: Market
-                        </NavLink>
-                        {/* tbd: may these should be replaced by a dashboard button and a logout button when logged in  */}
-                     </Stack>
-                  </DrawerBody>
-               </DrawerContent>
-            </DrawerOverlay>
-         </Drawer>
-      </>
-   );
-}
-
 function Nav(props) {
+   function DrawerExample() {
+      const { isOpen, onOpen, onClose } = useDisclosure();
+      const btnRef = React.useRef();
+
+      return (
+         <>
+            <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
+               Menu
+            </Button>
+            <Drawer
+               isOpen={isOpen}
+               placement="right"
+               onClose={onClose}
+               finalFocusRef={btnRef}
+            >
+               <DrawerOverlay>
+                  <DrawerContent>
+                     <DrawerCloseButton />
+
+                     <DrawerBody>
+                        <Stack>
+                           <NavLink onClick={onClose} to="/">
+                              Home
+                           </NavLink>
+                           <NavLink onClick={onClose} to="/about">
+                              About Us
+                           </NavLink>
+                           <NavLink onClick={onClose} to="/team">
+                              Meet the Team
+                           </NavLink>
+
+                           {props.currentUser.id === undefined ? (
+                              <NavLink onClick={onClose} to="/register">
+                                 Sign Up
+                              </NavLink>
+                           ) : (
+                              <></>
+                           )}
+
+                           {props.currentUser.id === undefined ? (
+                              <NavLink onClick={onClose} to="/login">
+                                 Log In
+                              </NavLink>
+                           ) : (
+                              <></>
+                           )}
+
+                           {props.currentUser.id === undefined ? (
+                              <></>
+                           ) : (
+                              <NavLink onClick={onClose} to="/dashboard">
+                                 Dashboard
+                              </NavLink>
+                           )}
+
+                           {props.currentUser.id === undefined ? (
+                              <></>
+                           ) : (
+                              <NavLink onClick={onClose} to="/market">
+                                 Market
+                              </NavLink>
+                           )}
+
+                           {props.currentUser.id === undefined ? (
+                              <></>
+                           ) : (
+                              <NavLink
+                                 to="/"
+                                 onClick={(e) => {
+                                    props.setCurrentUser({});
+                                    onClose(e);
+                                 }}
+                              >
+                                 Logout
+                              </NavLink>
+                           )}
+                        </Stack>
+                     </DrawerBody>
+                  </DrawerContent>
+               </DrawerOverlay>
+            </Drawer>
+         </>
+      );
+   }
+
    return (
       <Box>
          <nav className="navbar">
