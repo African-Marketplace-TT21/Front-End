@@ -1,8 +1,9 @@
 # African Marketplace frontend 
 
 - UI library to be used is https://chakra-ui.com, which has been added in package list.
+- live version is available at https://compassionate-engelbart-8295fb.netlify.app
+- Live version contains a private db key that is not included in this repo, but all other code are the same.
 
-(Add relevant project info here)
 
 
 
