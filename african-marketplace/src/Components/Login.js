@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Alert, AlertIcon } from "@chakra-ui/react";
 import PasswordInput from "./PasswordInput";
 import { NavLink, useHistory } from "react-router-dom";
 import sha256 from "crypto-js/sha256";
@@ -14,22 +14,62 @@ export default function Login(props) {
    const validate = () => {
       //find the user with matching email in data
       // check whether the password vanilla sha256 hash matches
-      let success = false;
-      if (props.mockAccounts.filter((i) => i.email == email).length === 0) {
-         alert("This email does not belong to a registered account");
-         return;
-      } else {
-         success =
-            props.mockAccounts.filter((i) => i.email == email)[0]
-               .passwordHash === sha256(pass).toString();
-      }
 
-      if (success) {
-         props.setCurrentUser(
-            props.mockAccounts.filter((i) => i.email == email)[0]
-         );
-         history.push("/dashboard");
-      }
+      document
+         .querySelectorAll(".loginalert")
+         .forEach((i) => (i.style.display = "none"));
+      // let success = false;
+      const q = props.q;
+      const faunaClient = props.faunaClient;
+      // let error = 0;
+
+      faunaClient
+         .query(q.Paginate(q.Documents(q.Collection("users"))))
+         .then((ret) => {
+            let usermatch = [];
+            const test = ret.data;
+
+            faunaClient
+               .query(q.Map(test, q.Lambda("x", q.Get(q.Var("x")))))
+               .then((res) => {
+                  // let a1, a2;
+                  usermatch = res
+                     .map((i) => i.data)
+                     .filter((i) => i.email === email);
+                  if (usermatch.length === 0) {
+                     document.querySelector(".loginbademail").style.display =
+                        "initial";
+                     setTimeout(() => {
+                        let temp = document.querySelector(".loginbademail");
+                        temp ? (temp.style.display = "none") : {};
+                     }, 6000);
+                  } else {
+                     if (
+                        usermatch[0].passwordHash !== sha256(pass).toString()
+                     ) {
+                        document.querySelector(
+                           ".loginbadpassword"
+                        ).style.display = "initial";
+                        setTimeout(() => {
+                           let temp = document.querySelector(
+                              ".loginbadpassword"
+                           );
+                           temp ? (temp.style.display = "none") : {};
+                        }, 6000);
+                     } else {
+                        document.querySelector(".logingood").style.display =
+                           "initial";
+                        setTimeout(() => {
+                           document.querySelector(".logingood").style.display =
+                              "none";
+                           props.setCurrentUser(usermatch[0]);
+                           history.push("/dashboard");
+                        }, 2000);
+                     }
+                  }
+               });
+         });
+
       // console.log("you clicked login");
    };
    // validate fires after Login button is clicked.
@@ -37,6 +77,39 @@ export default function Login(props) {
 
    return (
       <Box className="login">
+         <Alert
+            status="error"
+            className="loginbademail loginalert"
+            display="none"
+            borderRadius="8px"
+            mb="1%"
+         >
+            <Box display="flex">
+               <AlertIcon /> There is no account with this Email.
+            </Box>
+         </Alert>
+         <Alert
+            status="error"
+            className="loginbadpassword loginalert"
+            display="none"
+            borderRadius="8px"
+            mb="1%"
+         >
+            <Box display="flex">
+               <AlertIcon /> {"Password isn't correct"}
+            </Box>
+         </Alert>
+         <Alert
+            status="success"
+            className="logingood loginalert"
+            display="none"
+            borderRadius="8px"
+            mb="1%"
+         >
+            <Box display="flex">
+               <AlertIcon /> {"Looks Good! Going to your Dashboard!"}
+            </Box>
+         </Alert>
          <form>
             <FormControl id="login-email" isRequired>
                <FormLabel>Email</FormLabel>

@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 // import axios from "axios";
 
 export default function Register(props) {
+   const q = props.q;
+   const faunaClient = props.faunaClient;
    const history = useHistory();
    const [name, setName] = useState({ firstname: "", lastname: "" }); // [firstname, lastname]
    const [email, setEmail] = useState("");
@@ -29,7 +31,14 @@ export default function Register(props) {
          info.items = [];
       }
       if (props.mockAccounts.filter((i) => i.email == email).length === 0) {
-         props.setMockAccounts(props.mockAccounts.concat(info));
+         // props.setMockAccounts(props.mockAccounts.concat(info));
+         faunaClient.query(
+            q.Create(q.Collection("users"), {
+               data: info,
+            })
+         );
+         // register succeeded, go to homepage.
+         // tbd: some visual hint
          history.push("/");
       } else {
          document.querySelector(".registerfail").style.display = "initial";

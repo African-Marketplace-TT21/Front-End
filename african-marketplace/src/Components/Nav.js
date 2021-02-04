@@ -14,7 +14,7 @@ function Nav(props) {
    function DrawerExample() {
       const { isOpen, onOpen, onClose } = useDisclosure();
       // const btnRef = React.useRef();
-      let x;
+      let timeout;
       return (
          <>
             <Button
@@ -24,10 +24,10 @@ function Nav(props) {
                   onOpen(e);
                }}
                onMouseOver={() => {
-                  x = setTimeout(onOpen, 750);
+                  timeout = setTimeout(onOpen, 750);
                }}
                onMouseLeave={() => {
-                  clearTimeout(x);
+                  clearTimeout(timeout);
                }}
             >
                Menu

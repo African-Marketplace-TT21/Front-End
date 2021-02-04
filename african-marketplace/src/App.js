@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Route, NavLink } from "react-router-dom";
+import { Route, NavLink, useLocation } from "react-router-dom";
 import { Box, Text, Button, Link, Image, Divider } from "@chakra-ui/react";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,6 +25,12 @@ import Dashboard from "./Components/Dashboard";
 import Market from "./Components/Market";
 import TestItems from "./Mockdata/testitems";
 import TestAccounts from "./Mockdata/testaccounts";
+import * as faunadb from "faunadb";
+// import dbkey from "./Private/key";
+
+// var client = new faunadb.Client({
+//    secret: dbkey,
+// });
 
 library.add(faPaperPlane, faLaptop, faCode, faHeadphones, faHeart, faFlag);
 const section3icons = [
@@ -112,9 +118,19 @@ function AnimateScroll() {
 }
 
 function App() {
+   const a = useLocation();
+   let client;
+   if (a.search.split("?key=").length === 2) {
+      client = new faunadb.Client({
+         secret: a.search.split("?key=")[1],
+      });
+   }
+
    const [mockItems, setMockItems] = useState(TestItems);
    const [mockAccounts, setMockAccounts] = useState(TestAccounts);
    const [currentUser, setCurrentUser] = useState({});
+   const [q, setQ] = useState(faunadb.query);
+   const [faunaClient, setFaunaClient] = useState(client);
 
    return (
       <Box width="100%" className="appbody">
@@ -281,6 +297,8 @@ function App() {
             <Register
                mockAccounts={mockAccounts}
                setMockAccounts={setMockAccounts}
+               q={q}
+               faunaClient={faunaClient}
             />
          </Route>
          <Route exact path="/login">
@@ -288,6 +306,8 @@ function App() {
                mockAccounts={mockAccounts}
                currentUser={currentUser}
                setCurrentUser={setCurrentUser}
+               q={q}
+               faunaClient={faunaClient}
             />
          </Route>
          <Route exact path="/dashboard">
