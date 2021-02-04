@@ -21,6 +21,7 @@ import Footer from "./Components/Footer";
 import Pic01 from "./Assets/pic01.jpeg";
 import Pic02 from "./Assets/pic02.jpeg";
 import Pic03 from "./Assets/pic03.jpeg";
+import TeamAbout from "./Components/TeamAbout";
 import Dashboard from "./Components/Dashboard";
 import Market from "./Components/Market";
 import TestItems from "./Mockdata/testitems";
@@ -331,6 +332,12 @@ function App() {
                q={q}
                faunaClient={faunaClient}
             />
+         </Route>
+         <Route exact path="/about">
+            <TeamAbout about={true} />
+         </Route>
+         <Route exact path="/team">
+            <TeamAbout about={false} />
          </Route>
       </Box>
    );

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Box, Input, Select } from "@chakra-ui/react";
-import ItemCard from "./ItemCard";
+import ItemCard from "./DashboardComponents/ItemCard";
 import { v4 as uuidv4 } from "uuid";
 
 // import TestItems from "../Mockdata/testitems";
