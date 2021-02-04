@@ -258,9 +258,31 @@ body {
 }
 
 .menu-drawer a:hover {
-   opacity: 0.86;
+   background-color: #11a296;
    transform: translateX(-15px);
    transition: 0.1s;
+}
+
+.yuperror {
+   /* background-color: rgba(253, 201, 201, 0.678); */
+   color: red;
+   /* width: 20vw; */
+   font-size: 0.8rem;
+   width: 0px;
+   text-indent: -999px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-align: right;
+   white-space: nowrap;
+}
+
+.yuperror_2 {
+   /* background-color: rgba(253, 201, 201, 0.678); */
+   color: red;
+   /* width: 20vw; */
+   font-size: 0.8rem;
+   text-indent: 8px;
 }
 
 @media (max-width: 700px) {

@@ -13,8 +13,11 @@ export default function PasswordInput(props) {
             pr="4.5rem"
             type={show ? "text" : "password"}
             placeholder="Enter password"
-            name="password"
-            onChange={(e) => setPass(e.target.value)}
+            name="pass"
+            onChange={(e) => {
+               setPass(e.target.value);
+               props.validate(e);
+            }}
             value={pass}
             autoComplete="off"
          />

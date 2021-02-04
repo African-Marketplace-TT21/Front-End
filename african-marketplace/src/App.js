@@ -126,6 +126,11 @@ function App() {
       });
    }
 
+   // client = new faunadb.Client({
+   //    secret: a.search.split("?key=")[1],
+   // });
+   // else there is no connection to the db
+
    const [mockItems, setMockItems] = useState(TestItems);
    const [mockAccounts, setMockAccounts] = useState(TestAccounts);
    const [currentUser, setCurrentUser] = useState({});
@@ -315,10 +320,17 @@ function App() {
                mockItems={mockItems}
                setMockItems={setMockItems}
                currentUser={currentUser}
+               q={q}
+               faunaClient={faunaClient}
             />
          </Route>
          <Route exact path="/market">
-            <Market mockItems={mockItems} />
+            <Market
+               mockItems={mockItems}
+               currentUser={currentUser}
+               q={q}
+               faunaClient={faunaClient}
+            />
          </Route>
       </Box>
    );

@@ -11,7 +11,7 @@ export default function Login(props) {
    const [pass, setPass] = useState("");
    const history = useHistory();
 
-   const validate = () => {
+   const validatelogin = () => {
       //find the user with matching email in data
       // check whether the password vanilla sha256 hash matches
 
@@ -124,10 +124,11 @@ export default function Login(props) {
                   placeholder="Password"
                   pass={pass}
                   setPass={setPass}
+                  validate={() => {}}
                />
             </FormControl>
             <Box display="flex" justifyContent="space-around" mt="3%">
-               <Button onClick={validate}> Login </Button>
+               <Button onClick={validatelogin}> Login </Button>
                {/* if successful, go to /dashboard */}
                <NavLink to="/">
                   <Button> Cancel </Button>

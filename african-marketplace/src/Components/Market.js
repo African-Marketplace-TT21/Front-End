@@ -1,8 +1,9 @@
 // After owner added an item in his dashboard, any user would be able to see it this page if the search location is correct.
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Input, Select } from "@chakra-ui/react";
 import ItemCard from "./ItemCard";
+import { v4 as uuidv4 } from "uuid";
 
 // import TestItems from "../Mockdata/testitems";
 
@@ -40,7 +41,22 @@ export default function Market(props) {
    const [searchterm, setSearchterm] = useState("");
    const [searchcategory, setSearchcategory] = useState("");
    const [searchlocation, setSearchlocation] = useState("");
+   const q = props.q;
+   const faunaClient = props.faunaClient;
+   const [displayItems, setDisplayItems] = useState([]);
 
+   useEffect(() => {
+      faunaClient
+         .query(q.Paginate(q.Documents(q.Collection("items"))))
+         .then((ret) => {
+            faunaClient
+               .query(q.Map(ret.data, q.Lambda("x", q.Get(q.Var("x")))))
+               .then((res) => {
+                  // console.log(res.map((i) => i.data));
+                  setDisplayItems(res.map((i) => i.data));
+               });
+         });
+   }, []);
    //filter would accept or reject items to be displayed on the market page according to the selected filters and search keyword
    function filter(items) {
       // this is not the best practice to search stuff
@@ -116,14 +132,15 @@ export default function Market(props) {
                <option value="Tanzania"> Tanzania </option>
             </Select>
          </Box>
-         <Box className="marketresult" mt="4vh">
-            {filter(props.mockItems).map((i) => (
-               <ItemCard
-                  key={i.id + i.description + "_market"}
-                  data={i}
-               ></ItemCard>
-            ))}
-         </Box>
+         {props.currentUser.id === undefined ? (
+            <h1>Please Log in to visit market</h1>
+         ) : (
+            <Box className="marketresult" mt="4vh">
+               {filter(displayItems).map((i) => (
+                  <ItemCard key={uuidv4() + "_market"} data={i}></ItemCard>
+               ))}
+            </Box>
+         )}
       </Box>
    );
 }

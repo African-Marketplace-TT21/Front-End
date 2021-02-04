@@ -11,7 +11,7 @@ import {
 
 function Nav(props) {
    // const [t, setT] = useState(false);
-   function DrawerExample() {
+   function MenuDrawer() {
       const { isOpen, onOpen, onClose } = useDisclosure();
       // const btnRef = React.useRef();
       let timeout;
@@ -118,7 +118,7 @@ function Nav(props) {
             >
                AFRICAN MARKETPLACE
             </Text>
-            <DrawerExample></DrawerExample>
+            <MenuDrawer></MenuDrawer>
          </nav>
       </Box>
    );
