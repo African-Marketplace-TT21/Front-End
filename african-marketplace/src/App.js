@@ -129,8 +129,8 @@ function App() {
    const [mockItems, setMockItems] = useState(TestItems);
    const [mockAccounts, setMockAccounts] = useState(TestAccounts);
    const [currentUser, setCurrentUser] = useState({});
-   const [q, setQ] = useState(faunadb.query);
-   const [faunaClient, setFaunaClient] = useState(client);
+   const [q] = useState(faunadb.query);
+   const [faunaClient] = useState(client);
 
    return (
       <Box width="100%" className="appbody">
