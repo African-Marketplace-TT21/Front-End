@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Text, Button, Link, Image, Divider } from "@chakra-ui/react";
+import React from "react";
+import { Box, Text, Divider } from "@chakra-ui/react";
 import Footer from "./Footer";
 
 export default function TeamAbout(props) {

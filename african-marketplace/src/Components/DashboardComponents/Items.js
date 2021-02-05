@@ -7,6 +7,7 @@ import {
    FormLabel,
    Input,
    Select,
+   Tooltip,
    useDisclosure,
 } from "@chakra-ui/react";
 
@@ -53,6 +54,7 @@ export default function Items(props) {
       const initialRef = React.useRef();
       // const finalRef = React.useRef()
       const [submitDisabled, setSubmitDisabled] = useState(true);
+      const [currentCatAvgPrice, setCurrentCatAvgPrice] = useState("");
       const [errors, setErrors] = useState({
          name: "",
          category: "",
@@ -91,6 +93,16 @@ export default function Items(props) {
       };
 
       const checkSubmitStatus = () => {
+         if (
+            itemdata.name == "" ||
+            itemdata.category == "" ||
+            itemdata.location == "" ||
+            itemdata.price == ""
+         ) {
+            setSubmitDisabled(true);
+            return;
+         }
+
          for (let i of Object.keys(errors)) {
             if (errors[i].length != 0) {
                setSubmitDisabled(true);
@@ -158,6 +170,22 @@ export default function Items(props) {
          });
       };
 
+      const checkavgprice = (e) => {
+         faunaClient
+            .query(
+               q.Paginate(q.Match(q.Index("PriceOfCategory"), e.target.value))
+            )
+            .then((res) => {
+               setCurrentCatAvgPrice(
+                  res.data.length === 0
+                     ? "N/A"
+                     : (
+                          res.data.reduce((a, b) => a + b, 0) / res.data.length
+                       ).toFixed(2)
+               );
+            });
+      };
+
       return (
          <>
             <Button onClick={onOpen}> Add Item </Button>
@@ -204,21 +232,43 @@ export default function Items(props) {
 
                      <FormControl isRequired>
                         <FormLabel>Item Category</FormLabel>
-                        <Select
-                           name="category"
-                           placeholder="Category"
-                           onChange={(e) => {
-                              update(e);
-                              checkvalid(e);
-                           }}
+                        <Tooltip
+                           className="avgpricetooltip"
+                           label={"Avg: $" + currentCatAvgPrice}
+                           placement="left-start"
+                           // isDisabled={true}
                         >
-                           <option value="Coffee"> Coffee </option>
-                           <option value="Fruits"> Fruits </option>
-                           <option value="Herbs"> Herbs </option>
-                           <option value="Meat"> Meat </option>
-                           <option value="Tea"> Tea </option>
-                           <option value="Vegetables"> Vegetables </option>
-                        </Select>
+                           {/* {itemdata.category.length > 0 && (
+                              <Box>
+                                 <Text>
+                                    {" "}
+                                    Avg $ on market: {currentCatAvgPrice}
+                                 </Text>
+                              </Box>
+                           )} */}
+                           <Select
+                              name="category"
+                              placeholder="Category"
+                              onChange={(e) => {
+                                 update(e);
+                                 checkavgprice(e);
+                                 checkvalid(e);
+                              }}
+                           >
+                              <option value="Coffee"> Coffee </option>
+                              <option value="Fruits"> Fruits </option>
+                              <option value="Herbs"> Herbs </option>
+                              <option value="Meat"> Meat </option>
+                              <option value="Tea"> Tea </option>
+                              <option value="Vegetables"> Vegetables </option>
+                           </Select>
+                        </Tooltip>
+                        {currentCatAvgPrice !== "" && (
+                           <Text fontSize="sm" mt="2px">
+                              Avg: ${currentCatAvgPrice}
+                           </Text>
+                        )}
+
                         {errors.category.length > 0 && (
                            <Box className="yuperror_2">
                               <Text>{errors.category}</Text>
@@ -267,7 +317,7 @@ export default function Items(props) {
 
                   <ModalFooter>
                      {submitDisabled ? (
-                        <Button></Button>
+                        <Button> Add Item </Button>
                      ) : (
                         <Button
                            colorScheme="blue"
